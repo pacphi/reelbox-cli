@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 import { Command } from "commander";
+import { readFileSync } from "node:fs";
+
+const { version } = JSON.parse(
+  readFileSync(new URL("../package.json", import.meta.url), "utf8"),
+) as { version: string };
 
 const REQUIRED_NODE_MAJOR = 24;
 const nodeMajor = Number.parseInt(process.versions.node.split(".")[0], 10);
@@ -27,7 +32,7 @@ program
       "Zero-credential by design: reads official Meta DYI / Google Takeout exports\n" +
       "and public enrichment JSON. Never logs in anywhere.",
   )
-  .version("1.2.0")
+  .version(version)
   .showHelpAfterError("(add --help for usage of any command)")
   .showSuggestionAfterError();
 
