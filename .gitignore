@@ -72,7 +72,21 @@ CLAUDE.local.md
 # witness-keys/ with real private key material (*.key.pem), which is why
 # *.pem and *.key are also ignored here as defense-in-depth in case key
 # material ever lands somewhere unexpected.
-.claude/
+#
+# The allowlist below is deliberately per-skill/per-command, not a blanket
+# `!.claude/skills/` or `!.claude/commands/` -- a future tooling install
+# (aqe/ruflo/superpowers drop dozens of generic skill dirs on init) must
+# never silently get swept back into git. To share a new hand-authored
+# project skill or command, add a matching `!` un-ignore line.
+.claude/*
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/new-platform-parser/
+!.claude/skills/zero-credential-guard/
+!.claude/commands/
+.claude/commands/*
+!.claude/commands/release.md
+!.claude/commands/verify.md
 .agentic-qe/
 .claude-flow/
 .agents/
