@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build & test (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 24 = current Active LTS (min supported per package.json engines),
+        # 26 = current release line.
+        node: ["24", "26"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up pnpm + Node ${{ matrix.node }}
+        uses: pnpm/setup@v2
+        with:
+          runtime: node@${{ matrix.node }}
+          cache: true
+
+      - name: Build
+        run: pnpm build
+
+      - name: Test
+        run: pnpm test
+
+      - name: Smoke test CLI
+        run: node dist/index.js --help
+
+  quality:
+    name: Quality (typecheck, markdown lint, audit)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up pnpm + Node
+        uses: pnpm/setup@v2
+        with:
+          runtime: node@24
+          cache: true
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+      - name: Markdown lint
+        run: pnpm run lint:md
+
+      - name: Dependency audit
+        run: pnpm run audit

@@ -1,0 +1,82 @@
+name: release
+
+# Publishes to npm when a version tag is pushed (v1.3.0, v1.3.0-beta.1, ...),
+# then creates the matching GitHub Release with auto-generated notes.
+# Requires the NPM_TOKEN repository secret (npm "Automation" token with
+# publish rights for the @pacphi scope: repo Settings -> Secrets and
+# variables -> Actions -> New repository secret). The tag must match
+# package.json's version -- the guard below enforces it. See docs/RELEASING.md.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # npm provenance attestation
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up pnpm + Node
+        uses: pnpm/setup@v2
+        with:
+          runtime: node@24
+          cache: true
+
+      - name: Test gate
+        run: pnpm test
+
+      - name: Tag <-> package.json version guard
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          if [ "v$PKG_VERSION" != "$REF_NAME" ]; then
+            echo "tag $REF_NAME does not match package.json version v$PKG_VERSION" >&2
+            exit 1
+          fi
+
+      - name: Build
+        run: pnpm build
+
+      - name: Smoke test the built CLI
+        run: node dist/index.js --version
+
+      - name: Publish to npm registry (with provenance)
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_REGISTRY: https://registry.npmjs.org
+        run: |
+          # prereleases (...-beta.N) go to the 'next' dist-tag; stable to 'latest'
+          case "$(node -p "require('./package.json').version")" in
+            *-*) pnpm publish --provenance --access public --tag next --no-git-checks ;;
+            *)   pnpm publish --provenance --access public --no-git-checks ;;
+          esac
+
+  # Runs only after a successful npm publish, so a Release object never
+  # exists for a version that didn't actually ship.
+  github-release:
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Create GitHub Release (auto-generated notes)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # mirror the npm dist-tag split: prereleases get the badge and are
+          # excluded from releases/latest; stable versions become Latest
+          case "$GITHUB_REF_NAME" in
+            *-*) gh release create "$GITHUB_REF_NAME" --verify-tag --generate-notes --prerelease ;;
+            *)   gh release create "$GITHUB_REF_NAME" --verify-tag --generate-notes --latest ;;
+          esac

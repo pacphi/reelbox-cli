@@ -1,0 +1,103 @@
+<svg width="700" viewBox="0 0 700 1056" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="reelbox pipeline diagram">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#73726c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      .th { font: 500 14px system-ui, -apple-system, "Segoe UI", sans-serif; }
+      .ts { font: 400 12px system-ui, -apple-system, "Segoe UI", sans-serif; }
+      .arr { stroke: #73726c; stroke-width: 1.5; fill: none; }
+    </style>
+  </defs>
+  <rect x="0" y="0" width="700" height="1056" rx="12" fill="#ffffff"/>
+
+  <g>
+    <rect x="35" y="60" width="200" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.75"/>
+    <text class="th" x="135" y="78" text-anchor="middle" dominant-baseline="central" fill="#085041">facebook-export.zip</text>
+    <text class="ts" x="135" y="98" text-anchor="middle" dominant-baseline="central" fill="#0F6E56">Saved items + collections</text>
+  </g>
+  <g>
+    <rect x="250" y="60" width="200" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.75"/>
+    <text class="th" x="350" y="78" text-anchor="middle" dominant-baseline="central" fill="#085041">instagram-export.zip</text>
+    <text class="ts" x="350" y="98" text-anchor="middle" dominant-baseline="central" fill="#0F6E56">Saved posts</text>
+  </g>
+  <g>
+    <rect x="465" y="60" width="200" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.75"/>
+    <text class="th" x="565" y="78" text-anchor="middle" dominant-baseline="central" fill="#085041">takeout.zip</text>
+    <text class="ts" x="565" y="98" text-anchor="middle" dominant-baseline="central" fill="#0F6E56">YouTube playlists</text>
+  </g>
+
+  <path class="arr" d="M135 116 L135 145 L310 145 L310 182" marker-end="url(#arrow)"/>
+  <path class="arr" d="M350 116 L350 182" marker-end="url(#arrow)"/>
+  <path class="arr" d="M565 116 L565 145 L390 145 L390 182" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="225" y="186" width="250" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.75"/>
+    <text class="th" x="350" y="204" text-anchor="middle" dominant-baseline="central" fill="#0C447C">reelbox extract</text>
+    <text class="ts" x="350" y="224" text-anchor="middle" dominant-baseline="central" fill="#185FA5">Parse exports, dedupe by ID</text>
+  </g>
+
+  <path class="arr" d="M350 242 L350 275 L205 275 L205 302" marker-end="url(#arrow)"/>
+  <path class="arr" d="M350 242 L350 275 L495 275 L495 302" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="95" y="306" width="220" height="56" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.75"/>
+    <text class="th" x="205" y="324" text-anchor="middle" dominant-baseline="central" fill="#444441">reelbox.state.json</text>
+    <text class="ts" x="205" y="344" text-anchor="middle" dominant-baseline="central" fill="#5F5E5A">Canonical reel records</text>
+  </g>
+  <g>
+    <rect x="385" y="306" width="220" height="56" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.75"/>
+    <text class="th" x="495" y="324" text-anchor="middle" dominant-baseline="central" fill="#444441">urls.txt</text>
+    <text class="ts" x="495" y="344" text-anchor="middle" dominant-baseline="central" fill="#5F5E5A">Deduped reel URLs</text>
+  </g>
+
+  <path class="arr" d="M495 362 L495 422" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="385" y="426" width="220" height="56" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.75"/>
+    <text class="th" x="495" y="444" text-anchor="middle" dominant-baseline="central" fill="#633806">Apify actor or yt-dlp</text>
+    <text class="ts" x="495" y="464" text-anchor="middle" dominant-baseline="central" fill="#854F0B">Public pages — no login</text>
+  </g>
+
+  <path class="arr" d="M205 362 L205 574 L219 574" marker-end="url(#arrow)"/>
+  <path class="arr" d="M495 482 L495 574 L481 574" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="225" y="546" width="250" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.75"/>
+    <text class="th" x="350" y="564" text-anchor="middle" dominant-baseline="central" fill="#0C447C">reelbox enrich</text>
+    <text class="ts" x="350" y="584" text-anchor="middle" dominant-baseline="central" fill="#185FA5">Merge captions + authors</text>
+  </g>
+
+  <path class="arr" d="M350 602 L350 662" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="225" y="666" width="250" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.75"/>
+    <text class="th" x="350" y="684" text-anchor="middle" dominant-baseline="central" fill="#3C3489">reelbox classify</text>
+    <text class="ts" x="350" y="704" text-anchor="middle" dominant-baseline="central" fill="#534AB7">Claude API topics — optional</text>
+  </g>
+
+  <path class="arr" d="M350 722 L350 782" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="225" y="786" width="250" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.75"/>
+    <text class="th" x="350" y="804" text-anchor="middle" dominant-baseline="central" fill="#0C447C">reelbox build</text>
+    <text class="ts" x="350" y="824" text-anchor="middle" dominant-baseline="central" fill="#185FA5">Emit markdown + index.md</text>
+  </g>
+
+  <path class="arr" d="M350 842 L350 902" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="225" y="906" width="250" height="56" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.75"/>
+    <text class="th" x="350" y="924" text-anchor="middle" dominant-baseline="central" fill="#444441">~/ReelLibrary</text>
+    <text class="ts" x="350" y="944" text-anchor="middle" dominant-baseline="central" fill="#5F5E5A">Folders, notes, index.md</text>
+  </g>
+
+  <rect x="35" y="996" width="14" height="14" rx="3" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.75"/>
+  <text class="ts" x="57" y="1003" dominant-baseline="central" fill="#444441">Official export — only login</text>
+  <rect x="255" y="996" width="14" height="14" rx="3" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.75"/>
+  <text class="ts" x="277" y="1003" dominant-baseline="central" fill="#444441">Local CLI — offline</text>
+  <rect x="430" y="996" width="14" height="14" rx="3" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.75"/>
+  <text class="ts" x="452" y="1003" dominant-baseline="central" fill="#444441">Public web — no login</text>
+  <rect x="35" y="1022" width="14" height="14" rx="3" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.75"/>
+  <text class="ts" x="57" y="1029" dominant-baseline="central" fill="#444441">Claude API — captions only, optional</text>
+</svg>

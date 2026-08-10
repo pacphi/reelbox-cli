@@ -1,0 +1,9 @@
+{
+  "globs": ["README.md", "CLAUDE.md", "AGENTS.md", "CONTRIBUTING.md", "docs/**/*.md"],
+  "ignores": ["node_modules", ".claude", ".agentic-qe", ".agents", ".claude-flow"],
+  "config": {
+    "default": true,
+    "MD013": false, // line length — prose/tables wrap naturally
+    "MD060": false // table pipe-alignment — cosmetic, fights hand-maintained tables
+  }
+}

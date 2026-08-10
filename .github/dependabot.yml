@@ -1,0 +1,28 @@
+version: 2
+updates:
+  # pnpm-lock.yaml is covered by the "npm" ecosystem (Dependabot supports
+  # npm, yarn, and pnpm lockfiles under this one ecosystem key).
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      dependencies:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  # Keeps actions/checkout, pnpm/setup, etc. current without a manual audit.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      actions:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "chore"
+      include: "scope"

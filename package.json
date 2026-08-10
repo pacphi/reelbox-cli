@@ -1,0 +1,60 @@
+{
+  "name": "@pacphi/reelbox-cli",
+  "version": "1.2.0",
+  "description": "Turn your saved Facebook/Instagram Reels into a structured Markdown library — no logins, no credentials.",
+  "license": "MIT",
+  "author": "Chris Phillipson",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pacphi/reelbox-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pacphi/reelbox-cli/issues"
+  },
+  "homepage": "https://github.com/pacphi/reelbox-cli#readme",
+  "bin": {
+    "reelbox": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint:md": "markdownlint-cli2",
+    "lint:md:fix": "markdownlint-cli2 --fix",
+    "audit": "pnpm audit --audit-level=moderate",
+    "audit:fix": "pnpm audit --fix=override",
+    "outdated": "pnpm outdated",
+    "upgrade": "pnpm up",
+    "check": "pnpm run typecheck && pnpm run lint:md && pnpm run build && pnpm test",
+    "preinstall": "npx -y only-allow pnpm"
+  },
+  "engines": {
+    "node": ">=24",
+    "pnpm": ">=11"
+  },
+  "dependencies": {
+    "adm-zip": "^0.6.0",
+    "commander": "^14.0.2"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.7",
+    "@types/node": "^24.10.1",
+    "@vitest/coverage-v8": "^4.1.10",
+    "markdownlint-cli2": "^0.23.2",
+    "tsx": "^4.20.7",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10"
+  },
+  "packageManager": "pnpm@11.21.0"
+}
