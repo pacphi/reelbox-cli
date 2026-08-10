@@ -45,15 +45,15 @@
   },
   "dependencies": {
     "adm-zip": "^0.6.0",
-    "commander": "^14.0.2"
+    "commander": "^15.0.0"
   },
   "devDependencies": {
     "@types/adm-zip": "^0.5.7",
-    "@types/node": "^24.10.1",
+    "@types/node": "^26.2.0",
     "@vitest/coverage-v8": "^4.1.10",
     "markdownlint-cli2": "^0.23.2",
     "tsx": "^4.20.7",
-    "typescript": "^5.9.3",
+    "typescript": "^7.0.2",
     "vitest": "^4.1.10"
   },
   "packageManager": "pnpm@11.21.0"
