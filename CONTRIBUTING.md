@@ -39,6 +39,19 @@ Before opening a PR, `pnpm check` must be clean — it's the same gate CI runs
 pnpm check
 ```
 
+## Claude Code skills & commands for this repo
+
+`.claude/` ships four reelbox-specific tools (everything else under
+`.claude/` is generic tooling state, gitignored — see the allowlist comment
+in `.gitignore`):
+
+| Name | Type | What it's for |
+|---|---|---|
+| `new-platform-parser` | skill (auto-triggers) | Scaffolds a new export parser (e.g. adding TikTok/Pinterest) following the existing instagram/facebook/youtube pattern — all 5 wiring touch points plus a real, passing test |
+| `zero-credential-guard` | skill (auto-triggers) | Reviews a diff/PR against the zero-credential invariant before merge |
+| `/release` | command | Walks [docs/RELEASING.md](docs/RELEASING.md)'s publish checklist |
+| `/verify` | command | Runs `pnpm check` + `pnpm audit` with a clear pass/fail summary |
+
 ## Test coverage expectations
 
 `tests/` mirrors `src/` and currently covers `src/lib`, `src/parsers`, and

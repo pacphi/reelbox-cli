@@ -70,6 +70,13 @@ and needs tolerant walking). Then touch, in this order:
    so the new flag needs to be threaded through here too, or `reelbox run`
    will silently drop it even though `reelbox extract` works fine standalone.
 
+Also worth a glance: `src/index.ts`'s top-level `.description()` string on
+the Commander program lists the currently-supported platforms
+("Facebook/Instagram Reels and YouTube Shorts") — update it so `reelbox
+--help` doesn't undersell what the CLI now does. Not load-bearing (nothing
+breaks if you skip it), but it's the kind of polish a careful contributor
+adds without being told to.
+
 ## Testing pattern
 
 Match `tests/parsers/*.test.ts`'s style exactly: `mkdtempSync(join(tmpdir(),
