@@ -1,7 +1,7 @@
 {
   "name": "@pacphi/reelbox-cli",
   "version": "1.2.0",
-  "description": "Turn your saved Facebook/Instagram Reels into a structured Markdown library \u2014 no logins, no credentials.",
+  "description": "Turn your saved Facebook/Instagram Reels into a structured Markdown library — no logins, no credentials.",
   "license": "MIT",
   "author": "Chris Phillipson",
   "type": "module",
