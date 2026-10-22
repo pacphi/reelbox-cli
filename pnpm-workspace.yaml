@@ -3,3 +3,23 @@ allowBuilds:
 engineStrict: true
 onlyBuiltDependencies:
   - esbuild
+# Security overrides for transitive deps of markdownlint-cli2 0.23.3, which pins
+# smol-toml 1.8.0 and markdown-it 15.0.1 exactly. Both stay within their current
+# major. Exit: drop both once markdownlint-cli2 >= 0.24.0 (ships smol-toml 1.9.1
+# and markdown-it 15.0.3) is adopted.
+overrides:
+  # GHSA-gfr2-rv44-r23c (quadratic link-reference rendering), fixed in 15.0.3
+  markdown-it@>=15.0.0 <15.0.3: ^15.0.3
+  # GHSA-r4xh-jqrq-34v2 (quadratic parse), fixed in 1.9.0; GHSA-7w5x-hrqm-74c2 fixed in 1.7.1
+  smol-toml@<1.9.0: ^1.9.1
+auditConfig:
+  ignoreGhsas:
+    # braces <=3.0.3 stack-exhaustion DoS on deeply nested brace patterns.
+    # https://github.com/advisories/GHSA-vfj7-8cjw-p6xm (CVE-2026-93687).
+    # No patched release exists (first_patched_version: null; braces 3.0.3 is
+    # the latest on npm). Path: markdownlint-cli2 > micromatch | globby >
+    # fast-glob > micromatch > braces. Dev-only: it only expands the repo's own
+    # fixed globs from .markdownlint-cli2.jsonc, never untrusted input, and is
+    # not in the published package (files: ["dist"]). Exit: remove once braces
+    # > 3.0.3 is published or micromatch drops braces.
+    - GHSA-vfj7-8cjw-p6xm
