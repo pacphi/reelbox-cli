@@ -50,10 +50,10 @@
   "devDependencies": {
     "@types/node": "^26.6.5",
     "@vitest/coverage-v8": "^4.1.12",
-    "markdownlint-cli2": "^0.23.3",
+    "markdownlint-cli2": "^0.24.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "vitest": "^4.1.12"
   },
-  "packageManager": "pnpm@11.21.0"
+  "packageManager": "pnpm@11.28.10"
 }
